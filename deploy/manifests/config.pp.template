@@ -1,0 +1,49 @@
+class base {
+  $basedir = "$<path>"
+  $user = "$< user >"
+  $mod_ver = "$< version >"
+  $pkg_dir = "$<pkg_dir>"
+  $mod_name = "$< name >"
+  $tag = "$< tag >"
+
+  $run_dir = "${basedir}"
+  $to_email = ""
+
+  $mod_start = "sleep 1000000"
+  #$mod_stop = "${basedir}/sbin/nginx -s stop"
+  #$mod_start = "${basedir}/sbin/nginx ; cd ${basedir}/sbin/ && ./xwafclient"
+  #$mod_stop = "${basedir}/sbin/nginx -s stop; cd ${basedir}/sbin && ./xwafclient stop"
+
+  #$mod_reload = "${basedir}/sbin/nginx -s reload"
+
+  #$mod_pid_cmd = "ps -ef | grep ${basedir}/sbin/nginx | grep -v grep | awk '{print \$2}'"
+  #$mod_pid_cmd = "cat /home/work/log/nginx/nginx.pid"
+  #$run_env = { 'LUAJIT_LIB' => "/usr/local/lib", 'LUAJIT_INC' => "/usr/local/include/luajit-2.1",'LD_LIBRARY_PATH'=> "/usr/local/lib/:"}
+  #$mod_run_log = "/home/work/log/nginx/error.log"
+
+	#LVS_STRING
+
+}
+
+class preview inherits base {
+}
+
+class production-sd inherits base {
+}
+
+class production-lg inherits base {
+}
+
+class production-hh inherits base {
+}
+
+class staging inherits base {
+}
+
+class onebox inherits base {
+}
+
+class c3 inherits base {
+}
+
+class config inherits $<env> {}

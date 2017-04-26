@@ -1,4 +1,0 @@
-JAVA_HOME=/usr/java/jdk1.7.0_25
-
-1 * * * * work cd <%= scope["config::basedir"] %>/libexec/clean_script && sh clean_log.sh
-* * * * * work cd <%= scope["config::basedir"] %>/libexec/jmxmonitor/bin/ && /usr/bin/python jmxmonitor.py --host localhost --port <%= scope["config::jmx_port"] %> <%= scope["config::prog_name"] %>

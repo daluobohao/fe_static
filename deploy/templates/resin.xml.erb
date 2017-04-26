@@ -1,0 +1,140 @@
+<!--
+   - Resin 4.0 configuration file.
+   -
+   - See conf/full.xml for more sample configuration, including load
+   - balancing and database configuration.
+  -->
+<resin xmlns="http://caucho.com/ns/resin"
+       xmlns:resin="urn:java:com.caucho.resin">
+
+  <!--
+     - Logging configuration for the JDK logging API.
+    -->
+  <log-handler name="" level="all" path="stdout:"
+               timestamp="[%y-%m-%d %H:%M:%S.%s] {%{thread}} "/>
+
+  <!--
+     - level='info' for production
+     - 'fine' or 'finer' for development and troubleshooting
+    -->
+  <logger name="com.caucho" level="info"/>
+
+  <logger name="com.caucho.java" level="config"/>
+  <logger name="com.caucho.loader" level="config"/>
+
+  <!--
+     - driver .jar files can be placed in ${resin.root}/ext-lib
+     -->
+  <class-loader>
+    <tree-loader path="${resin.root}/ext-lib"/>
+  </class-loader>
+ 
+  <!--
+     - Remote management requires at least one enabled admin user.
+    -->
+  <resin:AdminAuthenticator>
+    <resin:import path="${__DIR__}/admin-users.xml" optional="true"/>
+  </resin:AdminAuthenticator>
+
+  <!--
+     - For production sites, change dependency-check-interval to something
+     - like 600s, so it only checks for updates every 10 minutes.
+    -->
+  <dependency-check-interval>2s</dependency-check-interval>
+
+  <!-- Java system-properties -->
+  <system-property mail.smtp.host="127.0.0.1"/>
+  <system-property mail.smtp.port="25"/>
+
+  <!--
+     - default configuration applied to all clusters
+    -->
+  <cluster-default>
+    <!-- standard servlet behavior, including .jsp, .php, and WEB-INF -->
+    <resin:import path="${__DIR__}/app-default.xml"/>
+
+    <!-- enables development error pages -->
+    <development-mode-error-page/>
+
+    <!--
+       - Enables the proxy cache (available in Resin Professional) 
+      -->
+    <resin:if test="${resin.professional}">
+      <cache memory-size="64M">
+       <!-- Vary header rewriting for IE -->
+        <rewrite-vary-as-private/>
+      </cache>
+    </resin:if>
+
+    <!--
+       - Admin services
+      -->
+    <resin:DeployService/>
+
+    <resin:if test="${resin.professional}">
+      <resin:AdminServices/>
+    </resin:if>
+
+    <!--
+       - Default host configuration applied to all virtual hosts.
+      -->
+    <host-default>
+        <access-log path='<%= scope["config::log_dir"] %>/access.log'
+                format='%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"'
+                rollover-period="1W"/>
+
+      <!-- creates the webapps directory for .war expansion -->
+      <web-app-deploy path="webapps" versioning="true"/>
+
+      <!--
+         - Defaults applied to each web-app.
+        -->
+      <web-app-default>
+        <prologue>
+          <allow-servlet-el/>
+        </prologue>
+
+        <!-- enable persistent sessions -->
+        <session-config>
+          <use-persistent-store/>
+          <enable-url-rewriting>false</enable-url-rewriting>
+        </session-config>
+     
+        <!--
+           - Sets max-age for cacheable pages, e.g. static pages.
+          -->
+        <resin:if test="${resin.professional}">
+          <cache-mapping url-pattern="/" max-age="5s"/>
+          <cache-mapping url-pattern="*.gif" max-age="60s"/>
+          <cache-mapping url-pattern="*.jpg" max-age="60s"/>
+          <cache-mapping url-pattern="*.png" max-age="60s"/>
+          <cache-mapping url-pattern="*.css" max-age="60s"/>
+          <cache-mapping url-pattern="*.js" max-age="60s"/>
+         </resin:if>
+      </web-app-default>
+    </host-default>
+  </cluster-default>
+
+  <!--
+     - Configures the main appliction cluster.  Load-balancing configurations
+     - will also have a load-balance-tier cluster.
+    -->
+
+    <cluster id="<%= scope["config::prog_name"]%>">
+        <root-directory>.</root-directory>
+        <server-default>
+            <http address="*" port="<%= scope["config::http_port"] %>"/>
+            <% scope["config::jvm_args"].each do |arg| -%>
+            <jvm-arg><%= arg %></jvm-arg>
+            <% end -%>
+        </server-default>
+        <server id="<%= scope["config::prog_name"]%>" address="127.0.0.1" port="<%= scope["config::server_port"] %>"></server>
+        <host id="" root-directory=".">
+            <web-app id="/" root-directory='<%= scope["config::basedir"] %>/webapp'/>
+            <stdout-log path='<%= scope["config::log_dir"] %>/<%= scope["config::prog_name"]%>.stdout.log' rollover-period='1D' rollover-size='50mb'/>
+            <stderr-log path='<%= scope["config::log_dir"] %>/<%= scope["config::prog_name"]%>.stderr.log' rollover-period='1D' rollover-size='50mb'/>
+        </host>
+    </cluster>
+
+</resin>
+

@@ -1,0 +1,5 @@
+class xbox {
+  }
+
+
+include xbox

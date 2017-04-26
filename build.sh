@@ -16,8 +16,8 @@ cd $SCRIPT_DIR
 
 #mvn -U clean package -D${CLUSTER}=true -Dboss-online=true
 
-mkdir -p release/base/fe-static
-cp -r dist/* release/base/fe-static
+mkdir -p release/base/static
+cp -r dist/* release/base/static
 cp -r deploy/ release/
 #cp -r libexec/ release/
 #cp -r fe-build.sh release/

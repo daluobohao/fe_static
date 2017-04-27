@@ -145,7 +145,7 @@ const Feichanzhun = {
       */
       const isXMmanyou = checkXMmanyou();
       const isMIUI = checkMIUI();
-return true
+
       return isXMmanyou && isMIUI;
     }
   }

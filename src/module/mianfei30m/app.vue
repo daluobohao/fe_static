@@ -45,8 +45,12 @@ const mianfei30m = {
         text: [
           '30MB全球流量免费领',
           '小米漫游两岁啦~',
-          '欧洲41国、中国香港等热门国家和地区，“买两天赠一天，买四天赠三天”特惠进行中，全场流量包套餐低至3折起，按天付费套餐，当日流量无上限。',
-          '小米漫游承诺：真正“零门槛，免费用”！ 价值49元的全球51国通用流量包（30MB）任性送~'
+          '欧洲41国、中国香港等热门国家和地区，',
+          '“买两天赠一天，买四天赠三天”特惠进行中，',
+          '全场流量包套餐低至3折起，',
+          '按天付费套餐，当日流量无上限。',
+          '小米漫游承诺：真正“零门槛，免费用”！ ',
+          '价值49元的全球51国通用流量包（30MB）任性送~'
         ]
       },
       messages: [
@@ -126,6 +130,10 @@ export default mianfei30m;
     width: 100%;
   }
 
+  .banner + .page3 {
+    text-align: center;
+  }
+
   section {
     position: relative;
     overflow: auto;
@@ -142,6 +150,7 @@ export default mianfei30m;
     padding-top: 0.88rem;
     font-size: 15px;
     font-family: 'Adobi Heiti Std';
+    text-align: center;
   }
 
   section.page2 {

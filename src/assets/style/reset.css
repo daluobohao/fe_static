@@ -19,9 +19,9 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-ol, ul {
+/*ol, ul {
     list-style: none;
-}
+}*/
 address, caption, cite, code, dfn, em, strong, th, var {
     font-weight: normal;
     font-style: normal;
@@ -49,20 +49,5 @@ a {
 body {
   -webkit-overflow-scrolling: auto;
   line-height: 1.5;
-  background: rgba(0, 0, 0, .1);
-}
-
-textarea {
-  appearance: normal;
-  outline: none;
-  resize: none;
-  width: 100%;
-  border: 1px solid #ccc;
-  background-color: #eee;
-  box-sizing: border-box;
-  padding: 9px 8px;
-}
-
-.page {
-  overflow: auto;
+  background: white;
 }

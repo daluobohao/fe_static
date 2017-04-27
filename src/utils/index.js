@@ -17,7 +17,7 @@ export const location = {
 				return obj;
 			}
 		}
-		return 'cant find';
+		return null;
 	}
 };
 

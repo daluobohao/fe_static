@@ -47,7 +47,14 @@ const GOLD_CARD_LINK = 'http://app.veryzhun.com/activity/get3mGoldCard?channel=x
 // 打开小米漫游app
 const OPEN_XMmanyou_APP = 'com.miui.virtualsim://main?launchfrom=new_activities';
 
-const ENV = location.getParam('env')['value'];
+
+const ENV = (() => {
+  const envObj = location.getParam('env')
+  if (envObj) {
+    return envObj.value;
+  }
+  return '';
+})();
 
 // 数据打点统计
 const DATA_COUNT = () => {

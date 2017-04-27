@@ -182,7 +182,9 @@ export default Feichanzhun;
     overflow: auto;
     height: 100%;
     width: 100%;
-    background: #162c5b;
+    background: url('../../assets/feichanzhun/bottom-line.png') repeat-x bottom center;
+    background-size: 100% 0.14rem;
+    background-color: #162c5b;
   }
 
   .banner, .banner img {
@@ -286,8 +288,6 @@ export default Feichanzhun;
   .footer {
     height: 2.04rem;
     text-align: center;
-    background: url('../../assets/feichanzhun/bottom-line.png') repeat-x bottom center;
-    background-size: 100% 0.14rem;
   }
 
   .footer-btn {

@@ -32,6 +32,12 @@
     <section class="footer" v-if="hasFooter">
       <a class="footer-btn" :href="XMmanyuoApp">启动小米漫游</a>
     </section>
+
+    <div class="bottom-line"></div>
+
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
   </div>
 </template>
 
@@ -151,6 +157,10 @@ const Feichanzhun = {
 
       return isXMmanyou && isMIUI;
     }
+  },
+  mounted() {
+    // var $container = document.querySelector('.container');
+    // $container.style.height = $container.scrollHeight + 'px';
   }
 };
 
@@ -164,9 +174,17 @@ export default Feichanzhun;
   body {
     position: relative;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
+    line-height: 1.4;
     font-family: 'MI LANTING_GB OUTSIDE YS', 'FZLanTingHei-M-GBK', Arial, Verdana, Sans-serif;
     background: #162c5b;
+  }
+
+  .bottom-line {
+    width: 100%;
+    height: 0.14rem;
+    background: url('../../assets/feichanzhun/bottom-line.png') repeat-x bottom center;
+    background-size: 100%;
   }
 
   li {
@@ -178,13 +196,12 @@ export default Feichanzhun;
     overflow: auto;
     height: 100%;
     width: 100%;
-    background: url('../../assets/feichanzhun/bottom-line.png') repeat-x bottom center;
-    background-size: 100% 0.14rem;
     background-color: #162c5b;
   }
 
   .banner, .banner img {
     width: 100%;
+    line-height: 1;
   }
 /*70 132*/
   /* page */
@@ -202,9 +219,9 @@ export default Feichanzhun;
   
 
   section.page1 {
-    height: 3.96rem;
-    padding-top: 0.88rem;
-    font-size: 15px;
+    padding-top: 44px;
+    padding-bottom: 42px;
+    font-size: 14px;
     font-family: 'Adobi Heiti Std';
   }
 
@@ -216,16 +233,17 @@ export default Feichanzhun;
   }
 
   .line {
-    height: 3px;
+    height: 1px;
     background: url('../../assets/feichanzhun/line.png') repeat-x center center;
     background-size: 100%;
   }
   
   section > .group {
-    margin-top: 57px;
+    margin-top: 41px;
   }
 
   h3 {
+    line-height: 1;
     font-size: 16px;
     font-family: 'MI LANTINGBOLD GBKI BOLD';
     margin-bottom: 17px;
@@ -233,7 +251,7 @@ export default Feichanzhun;
 
   .page3 .group p,
   li {
-    margin-bottom: 20px;
+    margin-bottom: 19px;
   }
 
   section:last-child,
@@ -252,7 +270,7 @@ export default Feichanzhun;
   }
 
   .gold-card {
-    text-decoration: underline;
+    border-bottom: 1px solid #f6e0bd;
   }
   
   .logo-group {
@@ -297,5 +315,43 @@ export default Feichanzhun;
     background-color: #33b4ff;
     font-size: 12px;
   }
+
+  /* cloud */
+  section.cloud-group {
+    position: static;
+  }
+
+  .cloud {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100%;
+  }
+
+  .cloud-1 {
+    width: 49px;
+    height: 32px;
+    top: 202px;
+    right: -30px;
+    background-image: url('../../assets/feichanzhun/cloud-1.png');
+  }
+
+  .cloud-2 {
+    width: 36px;
+    height: 18px;
+    top: 385px;
+    left: -10px;
+    background-image: url('../../assets/feichanzhun/cloud-2.png');
+  }
+
+  .cloud-3 {
+    width: 49px;
+    height: 32px;
+    top: 844px;
+    right: -7px;
+    background-image: url('../../assets/feichanzhun/cloud-3.png');
+  }
+
+
 
 </style>

@@ -1,6 +1,43 @@
 <template>
   <div class="container">
-    <img style="width:100%;" src="../../assets/feichanzhun/51-reward.jpg">
+    <div class="banner">
+      <img src="../../assets/feichanzhun/51-banner.jpg" />
+    </div>
+    <section class="page1"> 
+      <p v-for="line in note" v-html="line"> </p>
+    </section>
+    <div class="line"></div>
+    <section class="page2">
+      <div class="group" v-for='msg in messages'>
+        <h3>{{ msg.title }}</h3>
+        <div v-if="msg.text.length > 1">
+          <ol>
+            <li v-for="t in msg.text" v-html="t"></li>
+          </ol>
+        </div>
+        <p v-else>{{ msg.text[0] }}</p>
+      </div>
+      
+    </section>
+    <section class="page3">
+      <div class="group">
+        <h3>{{ others.title }}</h3>
+        <p v-for="other in others.text" v-html="other"></p>  
+      </div>
+    </section>
+    <section class="logo-group">
+      <div class="logo-group-img"></div>
+      <p class="logo-text">联合出品</p>
+    </section>
+    <section class="footer" v-if="hasFooter">
+      <a class="footer-btn" :href="XMmanyuoApp">启动小米漫游</a>
+    </section>
+
+    <div class="bottom-line"></div>
+
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
   </div>
 </template>
 

@@ -124,11 +124,7 @@ const Feichanzhun = {
     return {
       XMmanyuoApp: OPEN_XMmanyou_APP,
       gold: GOLD_CARD_LINK,
-      tables: [
-        [1495611050542, '待开奖',  '待开奖'],
-        [1495611050542, '1234567890123456789', '10:00:00'],
-        [1495611050542, '待开奖', '待开奖']
-      ],
+      tables: null,
       // page1
       note: [
         // '亲爱的小米用户：',
@@ -138,7 +134,7 @@ const Feichanzhun = {
       messages: [
         {
           title: '中奖规则',
-          text: ['5月28日至30日连续三天，每日上午北京时间10:00起第一位启用订单的用户中奖。每日一位中奖用户，共计三位。']
+          text: ['5月28日至30日连续三天，每日上午北京时间10:00起第一位成功启用订单的用户中奖。每日一位中奖用户，共计三位。']
         },
         {
           title: '兑奖细则',
@@ -172,25 +168,33 @@ const Feichanzhun = {
   }, // endof data
   computed: {
     tableSource() {
-      return this.tables.map(data => {
-        let day = data[0], 
-          orderid = data[1], 
-          miid = data[2],
-          time = data[3];
+      console.log('tables ... : ', this.tables)
 
-        const dayTemp = new Date(day);
-        const month = dayTemp.getMonth() + 1;
-        const date = dayTemp.getDate();
-        // day = `${date}日`;
-        day = `${month}月${date}日`;
+      const tables = this.tables || [];
 
-        return [
-          day,
-          orderid,
-          miid,
-          time
-        ]
+      tables.map(item => {
+
+        console.log('item: ', item)
+
+        // let { date, miid, orderid, timestamp } = item;
+
+        // date = (() => {
+        //   const d = new Date();
+
+        //   const month = d.getMonth();
+        //     da = d.getDate();
+
+        //   return `${month}月${da}日`;
+        // })();
+
+        // return [
+        //   date,
+        //   orderid,
+        //   miid,
+        //   time
+        // ]
       })
+      return this.tables;
     },
     hasFooter() {
       /*
@@ -207,6 +211,39 @@ const Feichanzhun = {
   mounted() {
     // var $container = document.querySelector('.container');
     // $container.style.height = $container.scrollHeight + 'px';
+    
+  },
+  created() {
+    this.variflight();
+  },
+  methods: {
+    variflight() {
+      const self = this;
+
+      const url = 'https://snetroam.mihome.xiaomi.net/activity/tactivity/variflight';
+      const origin = window.location.origin;
+
+      return superagent.get(url)
+        .end((err, response) => {
+          if (err) {
+            console.error('variflight error: '+ err);
+            return;
+          }
+
+          const body = response.body || JSON.parse(response.text)
+
+          const { errCode, errMsg, result } = body;
+
+          if (errCode != 0) {
+            console.error(errMsg);
+            return;
+          }
+
+          const { data } = result;
+          console.log('data: ', data);
+          self.tables = data;
+        })
+    }
   }
 };
 

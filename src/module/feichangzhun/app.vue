@@ -204,9 +204,12 @@ const Feichangzhun = {
     variflight() {
       const self = this;
 
-      const url = 'https://snetroam.mihome.xiaomi.net/activity/tactivity/variflight';
+      let url = 'https://snetroam.mihome.xiaomi.net/activity/tactivity/variflight';
       const origin = window.location.origin;
-
+      const dateObj = location.getParam('date');
+      if (dateObj) {
+        url = `${url}?${dateObj.key}=${dateObj.value}`;
+      }
       return superagent.get(url)
         .end((err, response) => {
           if (err) {

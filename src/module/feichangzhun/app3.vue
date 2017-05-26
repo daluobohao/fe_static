@@ -1,62 +1,6 @@
 <template>
   <div class="container">
-    <div class="banner">
-      <img src="../../assets/feichanzhun/51-banner.jpg" />
-    </div>
-    <section class="page1"> 
-      <div class="table">
-        <table>
-          <tbody>
-            <tr>
-              <th>中奖日期</th>
-              <th>中奖订单号</th>
-              <!-- <th>MIID</th> -->
-              <th>激活时间</th>  
-            </tr>
-            <tr v-for="data in tableSource">
-              <td v-for="d in data">{{ d }}</td>
-            </tr>
-          </tbody>
-
-        </table>
-      </div>
-      <p v-for="line in note" v-html="line"> </p>
-    </section>
-    <div class="line"></div>
-    <section class="page2">
-      <p style="text-align: center;margin-top: 3em; font-size: 18px;">
-        限时福利，漫游用户<a class="gold-card color-brown" :href="gold"> 领飞常准金卡>></a>
-      </p>
-      <div class="group" v-for='msg in messages'>
-        <h3>{{ msg.title }}</h3>
-        <div v-if="msg.text.length > 1">
-          <ol>
-            <li v-for="t in msg.text" v-html="t"></li>
-          </ol>
-        </div>
-        <p v-else>{{ msg.text[0] }}</p>
-      </div>
-      
-    </section>
-    <section class="page3">
-      <div class="group">
-        <h3>{{ others.title }}</h3>
-        <p v-for="other in others.text" v-html="other"></p>  
-      </div>
-    </section>
-    <section class="logo-group">
-      <div class="logo-group-img"></div>
-      <p class="logo-text">联合出品</p>
-    </section>
-    <section class="footer" v-if="hasFooter">
-      <a class="footer-btn" :href="XMmanyuoApp">启动小米漫游</a>
-    </section>
-
-    <div class="bottom-line"></div>
-
-    <div class="cloud cloud-1"></div>
-    <div class="cloud cloud-2"></div>
-    <div class="cloud cloud-3"></div>
+    <img style="width:100%;" src="../../assets/feichangzhun/51-reward.jpg">
   </div>
 </template>
 
@@ -118,40 +62,38 @@ const checkMIUI = () => {
 }
 console.info('checkMIUI: ', checkMIUI());
 
-const Feichanzhun = {
-  name: 'Feichanzhun',
+const feichangzhun = {
+  name: 'feichangzhun',
   data() {
     return {
       XMmanyuoApp: OPEN_XMmanyou_APP,
-      gold: GOLD_CARD_LINK,
-      tables: null,
       // page1
       note: [
-        // '亲爱的小米用户：',
-        // '说走就走的旅行，从一张免费机票开始---小米漫游联手飞常准，为你的任性买单。活动期间购买任一小米漫游产品，即有机会赢取<span class="color-red">飞常准金卡和一张价值1000元内的国内机票</span>（港澳台除外），手慢无!'
+        '亲爱的小米用户：',
+        '说走就走的旅行，从一张免费机票开始---小米漫游联手飞常准，为你的任性买单。活动期间购买任一小米漫游产品，即有机会赢取<span class="color-red">飞常准金卡和一张价值1000元内的国内机票</span>（港澳台除外），手慢无!'
       ],
       // page2
       messages: [
         {
           title: '中奖规则',
-          text: ['5月28日至30日连续三天，每日上午北京时间10:00起第一位成功启用订单的用户中奖。每日一位中奖用户，共计三位。']
+          text: ['活动期间订单号12~16位的五位数与2017年5月8日体育彩票排列五号码做减法，结果最小的三位用户中奖。如结果相等，则下单时间较早者得。']
         },
         {
           title: '兑奖细则',
           text: [
             '奖品说明：共三张国内机票，每张价值不超过1000元（包含机建、燃油和税费等在内的实际支付金额，机票价格以飞常准App展示为准），不包括港澳台地区。',
-            '活动时间：2017年5月28日---2017年5月30日。',
-            `抽奖资格：在活动期间购买任一小米漫游产品并激活的用户。`,
-            '兑换规则：2017年 5 月28日至30日活动期间，在本页面实时开奖。中奖用户请于2017年6月9日前凭借订单截图私信微博（@小米移动），配合工作人员进行身份验证。逾期作废。',
-            '请中奖用户于2017年6月30日前确认所兑换航班。逾期作废。'
+            '活动时间：2017年4月26日---2017年5月7日。',
+            `抽奖资格：在活动期间购买任一小米漫游产品并领取飞常准金卡的用户<a class="gold-card color-brown" href="${ GOLD_CARD_LINK }">点击立即领取金卡>></a>`,
+            '兑换规则：在2017年 5 月9 日，小米移动官方微博（@小米移动）发榜，公布三名中奖者的订单号。中奖用户请于2017年5月11日前凭借订单截图私信微博（@小米移动），配合工作人员进行身份验证。逾期作废。',
+            '请中奖用户于2017年5月31日前确认所兑换航班。逾期作废。'
           ]
         },
         {
           title: '免责声明：',
           text: [
-            '同一台设备、同一MIID视为一个独立账户。每人仅限一次兑奖机会，不可重复兑奖。',
-            '如对本次活动有任何问题，请随时联系微博@小米移动。飞常准金卡领取或后续使用有任何问题，请联系飞常准客服400-138-0787。',
-            '仅限活动期间购买并激活小米漫游的用户参与机票抽奖。免费兑换码订单不参与此次活动。',
+            '同一台设备、同一MIID视为一个独立账户。同一账户仅有一次机会参加本次活动。免费兑换码订单不参与此次活动。',
+            '如对本次活动有任何问题，请随时联系微博：小米移动。飞常准金卡领取或后续使用有任何问题，请联系飞常准客服400-138-0787。',
+            '仅限活动期间购买小米漫游、领取飞常准金卡的用户参与机票抽奖。',
             '本活动最终解释权归小米公司所有。'
           ]
         }
@@ -167,35 +109,6 @@ const Feichanzhun = {
     };
   }, // endof data
   computed: {
-    tableSource() {
-      console.log('tables ... : ', this.tables)
-
-      const tables = this.tables || [];
-
-      tables.map(item => {
-
-        console.log('item: ', item)
-
-        // let { date, miid, orderid, timestamp } = item;
-
-        // date = (() => {
-        //   const d = new Date();
-
-        //   const month = d.getMonth();
-        //     da = d.getDate();
-
-        //   return `${month}月${da}日`;
-        // })();
-
-        // return [
-        //   date,
-        //   orderid,
-        //   miid,
-        //   time
-        // ]
-      })
-      return this.tables;
-    },
     hasFooter() {
       /*
         底部按钮显示
@@ -211,43 +124,10 @@ const Feichanzhun = {
   mounted() {
     // var $container = document.querySelector('.container');
     // $container.style.height = $container.scrollHeight + 'px';
-    
-  },
-  created() {
-    this.variflight();
-  },
-  methods: {
-    variflight() {
-      const self = this;
-
-      const url = 'https://snetroam.mihome.xiaomi.net/activity/tactivity/variflight';
-      const origin = window.location.origin;
-
-      return superagent.get(url)
-        .end((err, response) => {
-          if (err) {
-            console.error('variflight error: '+ err);
-            return;
-          }
-
-          const body = response.body || JSON.parse(response.text)
-
-          const { errCode, errMsg, result } = body;
-
-          if (errCode != 0) {
-            console.error(errMsg);
-            return;
-          }
-
-          const { data } = result;
-          console.log('data: ', data);
-          self.tables = data;
-        })
-    }
   }
 };
 
-export default Feichanzhun;
+export default feichangzhun;
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -266,28 +146,12 @@ export default Feichanzhun;
   .bottom-line {
     width: 100%;
     height: 0.14rem;
-    background: url('../../assets/feichanzhun/bottom-line.png') repeat-x bottom center;
+    background: url('../../assets/feichangzhun/bottom-line.png') repeat-x bottom center;
     background-size: 100%;
   }
 
   li {
     list-style-position: inside;
-  }
-
-  .table table {
-    margin: 0 auto;
-    font-size: 12px;
-    border-collapse: initial;
-    border-spacing: 15px;
-  }
-
-  .table td {
-    color: #f6e0bd;
-  }
-
-  .table th, .table td {
-    text-align: center;
-    /*width: 25%;*/
   }
 
   .container {
@@ -320,7 +184,8 @@ export default Feichanzhun;
   
 
   section.page1 {
-    padding: 44px 10px 42px 10px;
+    padding-top: 44px;
+    padding-bottom: 42px;
     font-size: 14px;
     font-family: 'Adobi Heiti Std';
   }
@@ -334,7 +199,7 @@ export default Feichanzhun;
 
   .line {
     height: 1px;
-    background: url('../../assets/feichanzhun/line.png') repeat-x center center;
+    background: url('../../assets/feichangzhun/line.png') repeat-x center center;
     background-size: 100%;
   }
   
@@ -390,7 +255,7 @@ export default Feichanzhun;
     width: 2.34rem;
     height: 1.04rem;
     margin-top: 0.88rem;
-    background: url('../../assets/feichanzhun/logo-group.png') no-repeat top center;
+    background: url('../../assets/feichangzhun/logo-group.png') no-repeat top center;
     background-size: 100%;
   }
 
@@ -433,7 +298,7 @@ export default Feichanzhun;
     height: 32px;
     top: 202px;
     right: -30px;
-    background-image: url('../../assets/feichanzhun/cloud-1.png');
+    background-image: url('../../assets/feichangzhun/cloud-1.png');
   }
 
   .cloud-2 {
@@ -441,14 +306,17 @@ export default Feichanzhun;
     height: 18px;
     top: 385px;
     left: -10px;
-    background-image: url('../../assets/feichanzhun/cloud-2.png');
+    background-image: url('../../assets/feichangzhun/cloud-2.png');
   }
 
   .cloud-3 {
     width: 49px;
     height: 32px;
-    top: 920px;
+    top: 844px;
     right: -7px;
-    background-image: url('../../assets/feichanzhun/cloud-3.png');
+    background-image: url('../../assets/feichangzhun/cloud-3.png');
   }
+
+
+
 </style>

@@ -23,9 +23,9 @@ const MiFansCardPrivilege = {
   },
   mounted() {
     const btn = document.querySelector('#btn');
-    btn.addEventListener('click', this.eventHandler, false);
+    btn.addEventListener('click', this.btnClickHandler, false);
     const root = document.querySelector('#mi-fans-card-privilege');
-    root.addEventListener('click', this.eventHandler, false);
+    root.addEventListener('click', this.rootClickHandler, false);
     setTimeout(function() {
       if (!isWeixinBrowser) {
         window.open(apkUri);        
@@ -33,17 +33,20 @@ const MiFansCardPrivilege = {
     }, 1000);
   },
   methods: {
-    eventHandler(e) {
+    btnClickHandler(e) {
       if (e.stopPropagation) {
         e.stopPropagation();
       }
       e.cancelBubble = true;
       if (isWeixinBrowser) {
-        this.showMask = !this.showMask;
+        this.showMask = true;
         return;
       }
       window.open(apkUri);
     },
+    rootClickHandler() {
+      this.showMask = false;
+    }
   },
 };
 

@@ -204,7 +204,8 @@ const Feichangzhun = {
     variflight() {
       const self = this;
 
-      let url = 'https://snetroam.mihome.xiaomi.net/activity/tactivity/variflight';
+      // let url = 'https://snetroam.mihome.xiaomi.net/activity/tactivity/variflight'; // test url
+      let url = 'https://netroam.mihome.xiaomi.net/activity/tactivity/variflight'
       const origin = window.location.origin;
       const dateObj = location.getParam('date');
       if (dateObj) {

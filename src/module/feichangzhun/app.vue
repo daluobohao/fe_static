@@ -26,7 +26,7 @@
     <section class="page2">
       <p style="text-align: center;margin-top: 3em; font-size: 18px;">
         限时福利，漫游用户
-        <a class="gold-card color-brown" :href="gold"> 领飞常准金卡>></a>
+        <a class="gold-card color-brown"> 领飞常准金卡>></a>
       </p>
       <div class="group" v-for='msg in messages'>
         <h3>{{ msg.title }}</h3>
@@ -75,35 +75,54 @@ const OPEN_XMmanyou_APP = 'com.miui.virtualsim://main?launchfrom=new_activities'
 
 
 const ENV = (() => {
-  const envObj = location.getParam('env')
+  const envObj = location.getParam('env');
   if (envObj) {
     return envObj.value;
   }
   return '';
 })();
 
-// 数据打点统计
+// pageview统计
 const DATA_COUNT = () => {
-  const ORIGIN = 'https://service.10046.mi.com';
-  const URL = '/boss_log/page_view_log';
+  const ORIGIN = 'https://netroam.mihome.xiaomi.net';
+  const URL = '/activity/bossLog/logPageView';
 
   const url = ORIGIN + URL;
 
   const env = ENV;
 
   const params = {
-    miid: 0,
-    page: 'variflight',
+    id: 0,
+    whichPage: 'variflight',
     value: env,
-    timestamp: +new Date()
+    source: +new Date()
+  }
+  console.info(params);
+
+  return superagent.get(`${url}?${formatParams(params)}`);
+}
+
+//click统计
+const clickCount = () => {
+  const ORIGIN = 'https://netroam.mihome.xiaomi.net';
+  const URL = '/activity/bossLog/logPageView';
+
+  const url = ORIGIN + URL;
+  const params = {
+    id: 0,
+    whichPage: 'goldCard',
+    value: 'fczClick',
+    source: +new Date()
   }
 
-  return superagent.post(url).send(formatParams(params));
+  console.info(params);
+
+  return superagent.get(`${url}?${formatParams(params)}`);
 }
 
 DATA_COUNT()
   .then(res => {
-    console.info('数据打点：', res)
+    console.info('pageview打点：', res.text)
   });
 
 const checkXMmanyou = () => {
@@ -169,7 +188,7 @@ const Feichangzhun = {
   }, // endof data
   computed: {
     tableSource() {
-      console.log('tables ... : ', this.tables)
+      // console.log('tables ... : ', this.tables)
 
       const tables = this.tables || [];
 
@@ -195,7 +214,14 @@ const Feichangzhun = {
   mounted() {
     // var $container = document.querySelector('.container');
     // $container.style.height = $container.scrollHeight + 'px';
-
+    const aBtn = document.querySelector('.gold-card');
+    aBtn.addEventListener('click', () => {
+      clickCount()
+        .then(res => {
+          console.info('click打点：', res.text)
+        });;
+        document.location.href = this.gold;
+    }, false);
   },
   created() {
     this.variflight();
@@ -294,6 +320,7 @@ li {
   width: 100%;
   line-height: 1;
 }
+
 
 
 /*70 132*/
@@ -407,6 +434,7 @@ li:last-child {
   background-color: #33b4ff;
   font-size: 12px;
 }
+
 
 
 /* cloud */

@@ -76,6 +76,7 @@ export default MiFansCardPrivilege;
   background-color: transparent;
   width: 100%;
   height: 100px;
+  user-select: none;
 }
 
 #mask {

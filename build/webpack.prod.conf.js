@@ -37,7 +37,9 @@ module.exports = merge(baseWebpackConfig, {
       }
     }),
     // 清空生成目录
-    new CleanPlugin(['../dist']),
+    new CleanPlugin(['dist'], {
+      root: path.resolve(__dirname, '../'),
+    }),
     //处理分包的机制的插件
     new webpack.optimize.OccurenceOrderPlugin(),
 
